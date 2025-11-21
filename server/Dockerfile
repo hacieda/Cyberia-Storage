@@ -1,11 +1,22 @@
+# ===== build =====
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 COPY . .
 
-RUN dotnet publish -c Release -o /app && ls -la /app
+RUN dotnet publish Api/Api.csproj -c Release -o /app
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# ===== runtime =====
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
+
+ENV ASPNETCORE_URLS=http://+:80
+
+# Swagger[../Cyberia-Storage/server/Api/Program.cs]
+ENV ASPNETCORE_ENVIRONMENT=Development
+
+EXPOSE 80
+
 COPY --from=build /app .
-ENTRYPOINT ["dotnet", "CyberiaStorage.Server.dll"]
+
+ENTRYPOINT ["dotnet", "Api.dll"]

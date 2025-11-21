@@ -13,6 +13,8 @@ services:
     build: ./server
     networks:
       - internal
+    ports:
+      - "5000:80"
     depends_on:
       - db
       # - storage
@@ -23,6 +25,8 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: cyberia
+    ports:
+      - "5432:5432"
     volumes:
       - ./db:/var/lib/postgresql/data
     networks:
