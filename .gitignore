@@ -2,21 +2,29 @@
 logs/
 *.log
 
+# Environment files
+.env
+.env.*
+
 # Node
 node_modules/
 dist/
+
+# .NET
+bin/
+obj/
 
 # Python
 __pycache__/
 *.pyc
 venv/
-.env
 
-# Docker
+# Docker / local runtime data
 db/
+storage/
 *.pid
 
-# System
+# System / IDE
 .DS_Store
 .idea/
 .vscode/
