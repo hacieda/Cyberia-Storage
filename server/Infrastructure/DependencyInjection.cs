@@ -1,17 +1,21 @@
-using Microsoft.Extensions.DependencyInjection;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-        // services.AddDbContext<StorageDbContext>(...);
-        // services.AddScoped<IFileRepository, FileRepository>();
-        // services.AddScoped<IFileStorage, LocalFileStorage>();
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(connectionString));
 
         return services;
     }
 }
-

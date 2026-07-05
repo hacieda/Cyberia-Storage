@@ -1,6 +1,8 @@
+// Optional
+
 namespace Application.DTO.Token;
 
-public class RegisterUserDto
+public class SendActivateToken
 {
     public string Email { get; set; } = "";
     public string Title { get; set; } = "";

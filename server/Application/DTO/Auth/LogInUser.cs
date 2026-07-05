@@ -1,6 +1,6 @@
 namespace Application.DTO.Auth;
 
-public class RegisterUserDto
+public class LogInUserDto
 {
     public string Username { get; set; } = "";
     public string Email { get; set; } = "";
