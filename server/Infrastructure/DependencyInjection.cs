@@ -1,4 +1,7 @@
+using Application.Interfaces;
+using Application.Options;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,10 +14,17 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.Configure<RegistrationOptions>(options =>
+        {
+            configuration.GetSection("Registration").Bind(options);
+        });
+
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(connectionString));
+
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }
